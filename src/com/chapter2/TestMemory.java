@@ -11,8 +11,23 @@ public class TestMemory {
     static class OOMObject{
 
     }
+    private int stackLen = 1;
+    private void stackLeak(){
+        System.out.println("==============="+stackLen);
+        stackLen++;
+        stackLeak();
+    }
+
     public static void main(String[] args) {
-        testOOM();
+//        testOOM();//测试堆内存溢出
+        //测试栈溢出
+        TestMemory testMemory = new TestMemory();
+        try {
+            testMemory.stackLeak();
+        } catch (Exception e) {
+
+            throw e;
+        }
     }
 
     /**
