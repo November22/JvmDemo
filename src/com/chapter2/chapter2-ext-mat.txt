@@ -1,0 +1,11 @@
+https://blog.csdn.net/angerlie/article/details/8039332
+    1.MAT的使用（OverView页面的查单）
+        a.Histogram：可以列出内存中的对象，对象的个数及大小。
+            i.Histogram的列说明：
+                *Objects（类的对象数量）；
+                *Shallow size（对象本身占用的内存大小，不包含对其他对象的引用，就是对象头[自身运行时数据、类型指针]+成员变量的总和）；
+                *Retained size：是该对象自己的shallow size，加上从该对象能直接或间接访问到的对象的shallow size之和。
+                换句话说，就是retained size是该对象被GC之后所能回收到内存的总和。
+        b.Dominator Tree：可以列出内存中线程，以及线程下面的对象占用的空间。
+        c.Top consumers：通过图形列出最大的Object。
+        d.Leak Suspects：通过MAT自动分析泄漏的原因。
