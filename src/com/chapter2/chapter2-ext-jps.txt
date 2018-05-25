@@ -1,0 +1,83 @@
+    命令scp：  scp -r root@10.151.31.23:/root/tmp.txt .
+    linux输出输入到文件：   jstack -F 26365 > tmp.txt
+
+    摘要：JDK本身提供了很多方便的JVM性能调优的 工具，除了集成式的*VisualVM*和Console外，还有jps，jstack，jmap，jhat，jstat，hprof等
+小巧的工具。
+    1.jps（主要用来输出JVM中运行的[进程]状态信息。）
+        a.语法格式  jps [options] [hostid]
+            i.如果不指定hostid就默认为当前主机
+        b.命令行参数数选项说明
+            i.  -q  不输出类名，jar名和传入main方法的参数
+            ii. -m  输出传入main方法的参数
+            iii.-l  输出main类或jar的全路径名
+            iv. -v  输出传入JVM的参数
+        c.说明    本机执行，可以看到idea和maven还有当前执行的jps命令。
+
+    2.**jstack（主要用来查看某个java进程内的[线程堆栈]信息）
+        a.语法格式
+            i.  jstack [options] pid
+            ii.  jstack [options] executable core
+            iii.    jstack [options] [server-id@]remote-hostname-or-ip
+        b.命令行参数说明
+            i.  -l  会打出额外的锁信息。在发生死锁时可以用jstack -l pid来查看锁持有的情况。
+            ii. -m  不仅会输出Java堆栈信息，还会输出C/C++堆栈信息（如native方法）
+
+    3.**实例，找出一个进程中最消耗CPU的线程，并定位到堆栈信息
+        a.  ps -aux|grep java   选取一个pid，进行测试 [pid=26365]
+            ci       26365  2.2 16.7 4515680 656816 ?      Sl   17:16   7:51 /a....
+        b.  top -Hp pid     找出最耗CPU的线程 [线程id=26408]
+            26408 ci        20   0 4409m 642m 7128 S  1.7 16.8   0:44.99 java
+        c.  printf "%x\n" threadId  得到线程id的[十六进制值] =  6728
+        d.  jstack pid | grep threadId的十六进制值。
+        "VM Periodic Task Thread" os_prio=0 tid=0x00007ffc60d9a000 nid=0x671f waiting on condition
+        ****操作报错，解决博客连接：https://www.cnblogs.com/yidiandhappy/p/7826383.html
+        **是启动进程的用户操作，不会报错**
+
+    4.**jmap(Memory Map)和jhat(Java Heap Analysis Tool)
+        -jmap用来查看堆内存使用的情况，一般结合jhat使用。
+        a.语法格式[如果是64位机器可能需要指定 -J-d64]
+            i. jmap [option] pid
+            ii. jmap [option] executable core
+            iii.jmap [option] [server-id@]remote-hostname-or-ip
+        b.options参数说明
+            i.  jmap -permstat pid *****报错，man jmap命令******
+                -打出进程中的类加载器和类加载器加载的持久代对象信息，输出：类加载器名称，对象是否存活（不可靠），对象地址，父类加载器
+            ，已加载的类大小等信息。
+
+            ii.jmap -heap pid[需要输出内容的说明]
+                -查看进程堆内存的使用情况，包括GC算法，堆配置参数和各代中堆内存的使用情况。
+
+            iii.jmap -histo:[live] pid  **需要是改进程所有者执行**
+                -jmap -histo:live 26365|sed -n '1,100p' 限定输出行数
+                -查看堆内存中的对象数目，大小统计直方图，如果带上live则只统计活对象。
+
+            iv.jmap -dump:format=b,file=dumpFileName pid
+                -把进程中内存使用情况dump到文件中，在用jhat分析查看。[MAT,VisualVM等工具都可以查看]
+                -*****jhat -port 9998 dumpFileName*****
+                -如果Dump文件太大，可能需要加上-J-Xmx512m参数指定最大堆内存，即 jhat -J-Xmx512m -port 9998 dumpFileName
+                -然后在浏览器输入主机地址:9998就可以查看了
+
+    5.jstat（JVM统计监测工具）
+        a.语法格式***需要当前用户执行****
+            i.jstat [generalOption | outputOptions vmid [interval[s|ms] [count]]]
+            ii.参数说明：vmid是java虚拟机的id，在linux/unix系统上一般就是进程id。interval是采样的时间间隔。count是采样数据。
+            iii.实例 200ms 4个样例
+                -jstat -gc pid 200 4
+        b.JVM内存布局
+            i.  堆内存布局 = 年轻代 + 年老代 + 永久代
+                年轻代 = Eden区 + 两个Survivor区（From和To）
+        c.输出的列说明
+            S0C、S1C、S0U、S1U：Survivor 0/1区容量（Capacity）和使用量（Used）
+            EC、EU：Eden区容量和使用量
+            OC、OU：年老代容量和使用量
+            PC、PU：永久代容量和使用量
+            YGC、YGT：年轻代GC次数和GC耗时
+            FGC、FGCT：Full GC次数和Full GC耗时
+            GCT：GC总耗时
+    **博客**6.hprof（Heap/CPU Profiling Tool
+        -hprof能够展现CPU的使用率，统计堆内存使用情况。
+
+
+
+
+
