@@ -64,8 +64,20 @@
             iii.实例 200ms 4个样例
                 -jstat -gc pid 200 4
         b.JVM内存布局
-            i.  堆内存布局 = 年轻代 + 年老代 + 永久代
+            i.  堆内存布局 = 年轻代(New) + 年老代(Tenured) + 永久代(Perm)
                 年轻代 = Eden区 + 两个Survivor区（From和To）
+
+            ii.年轻代:用来存放JVM刚分配的Java对象.
+                -分为以下几个区：
+                *Eden区：用来存放JVM刚分配的对象。
+                *Survivor1和Survivor2区:两个Survivor空间一样大，当Eden中的对象经过垃圾回收没有被回收时，会在两个Survivor区来回Copy，
+            当满足某个条件时，比如Copy次数，就会被Copy到年老代。Survivor的目的是为了增加对象在年轻代中的逗留时间，增加了被垃圾回收的可能性。
+                PS:Survivor翻译为-幸存者
+
+            iii.年老代:年轻代中经过垃圾回收没有回收掉的对象将被Copy到年老代。
+            iv.永久代:永久代存放Class，Method元信息，，其大小跟项目的规模，类，方法的量有关，设置原则是预留30%的空间。
+
+
         c.输出的列说明
             S0C、S1C、S0U、S1U：Survivor 0/1区容量（Capacity）和使用量（Used）
             EC、EU：Eden区容量和使用量
@@ -74,8 +86,9 @@
             YGC、YGT：年轻代GC次数和GC耗时
             FGC、FGCT：Full GC次数和Full GC耗时
             GCT：GC总耗时
-    **博客**6.hprof（Heap/CPU Profiling Tool
+    **博客**6.hprof（Heap/CPU Profiling Tool)
         -hprof能够展现CPU的使用率，统计堆内存使用情况。
+        -参加：chapter2-ext-tomcatparam.txt  设置tomcat的启动参数。
 
 
 

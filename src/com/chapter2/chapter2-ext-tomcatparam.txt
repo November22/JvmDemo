@@ -1,0 +1,5 @@
+    1.修改启动参数前，先查看tomcat默认启动的参数
+        a.通过 jps -v 查看
+    2.在tomcat的./bin/catalina.sh，中加入参数
+        如：JAVA_OPTS="-Xms1024m -Xmx1024m -Xss512K -XX:PermSize=256m -XX:MaxPermSize=256m"
+        如：JAVA_OPTS="-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/tomcat-qa-sdk/temp"

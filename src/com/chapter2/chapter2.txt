@@ -1,5 +1,5 @@
 关键词：[堆内存溢出、栈溢出、栈深度、运行时常量池、线程获更多、方法区与常量池溢出、VM args]
-PS：VM args:-XX:+HeapDumpOnOutOfMemoryError 可以让虚拟机出现内存异常时Dump出当前内存堆转储为快照存储，
+PS：VM args:-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=路径（不包含文件名）   可以让虚拟机出现内存异常时Dump出当前内存堆转储为快照存储，
 以便分析。（C:\Java\idea-workspace\JvmDemo）
 
 1.java虚拟机运行时数据区
