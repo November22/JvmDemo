@@ -28,7 +28,7 @@
         b.  top -Hp pid     找出最耗CPU的线程 [线程id=26408]
             26408 ci        20   0 4409m 642m 7128 S  1.7 16.8   0:44.99 java
         c.  printf "%x\n" threadId  得到线程id的[十六进制值] =  6728
-        d.  jstack pid | grep threadId的十六进制值。
+        d.  jstack pid | grep threadId 的十六进制值。
         "VM Periodic Task Thread" os_prio=0 tid=0x00007ffc60d9a000 nid=0x671f waiting on condition
         ****操作报错，解决博客连接：https://www.cnblogs.com/yidiandhappy/p/7826383.html
         **是启动进程的用户操作，不会报错**
