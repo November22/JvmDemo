@@ -70,9 +70,10 @@
             ii.年轻代:用来存放JVM刚分配的Java对象.
                 -分为以下几个区：
                 *Eden区：用来存放JVM刚分配的对象。
-                *Survivor1和Survivor2区:两个Survivor空间一样大，当Eden中的对象经过垃圾回收没有被回收时，会在两个Survivor区来回Copy，
+               *Survivor1和Survivor2区:两个Survivor空间一样大，当Eden中的对象经过垃圾回收没有被回收时，会在两个Survivor区来回Copy，
             当满足某个条件时，比如Copy次数，就会被Copy到年老代。Survivor的目的是为了增加对象在年轻代中的逗留时间，增加了被垃圾回收的可能性。
                 PS:Survivor翻译为-幸存者
+                PS: ？存疑，见chapter3.1垃圾收集算法.txt-2 复制算法？
 
             iii.年老代:年轻代中经过垃圾回收没有回收掉的对象将被Copy到年老代。
             iv.永久代:永久代存放Class，Method元信息，，其大小跟项目的规模，类，方法的量有关，设置原则是预留30%的空间。
