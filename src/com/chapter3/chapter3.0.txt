@@ -1,7 +1,7 @@
 摘要：垃圾收集器与内存分配策略、可达性分析算法、对象的两次标记、方法区回收。
 
 输出GC日志的VM args
--XX:+PrintGCDetails 输出GC详细日志；
+-XX:+PrintGCDetails 输出GC详细日志,并在进程退出时输出当前的内存各区域分配情况；
 -XX:+PrintGC 输出简单GC日志；
 -XX:+PrintGCDateStamps 输出GC的时间戳；
 -XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）；
