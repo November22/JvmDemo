@@ -1,0 +1,50 @@
+    1.Sun JDK监控和故障处理工具
+        a.jps：JVM Process Status Tool ，显示系统所有的HotSpot虚拟机进程。
+        b.jstat：JVM Statistics Monitoring Tool，用于收集HotSpot虚拟机各方面的运行数据。
+        c.jinfo：Configuration Info for Java，显示虚拟机配置信息。
+        d.jmap：Memory Map for Java，生成虚拟机的内存转储快照（heapdump文件）。
+        e.jhat：JVM Heap Dump Browser，用于分析heapdump文件，他会建立一个HTTP/HTML服务器，让用户可以浏览器
+    上查看分析结果。
+        f.jstack：Stack Trace forJava，显示虚拟机的线程快照。
+
+    2.jps：可以列出正在运行的虚拟机进程，并显示虚拟机执行的主类名称，及这些进程在本地虚拟机唯一ID（Local
+Virtual Machine Identifier，LVMID）。对本地虚拟机来说，LVMID与进程ID是一致的。
+        a.参数说明：
+            -q：只输出LVMID，省略主类的名称。
+            -m：输出虚拟机进程启动时传递给主类main()函数的参数。
+            -l：输出主类的全名，如果进程执行的是Jar包，就输出Jar包路径。
+          **-v：输出虚拟机进程启动时的JVM参数。
+
+    3.jstat：用于监视虚拟机各种运行状态信息的命令行工具。可以显示本地或远程虚拟机进程中的类装载、内存、
+垃圾收集、JIT编译等命令行数据。
+        a.命令格式 jstat [ option vmid [interval[s|ms] [count] ]]
+        b.实例：jstat -gc [PID]  250 20 【每隔250毫秒，查询进程id的垃圾收集情况，共20次】
+        c.option
+            -class：监视类装载、卸载数量、总空间以及类装载所消耗的时间；
+            -gc：监视java堆的情况，包括Eden区、两个Survivor区、年老代、永久代等容量、已用空间、GC时间合计等信息。
+            -gcutil：监视内容与-gc基本相同，输出为已使用的内存空间占比。
+            P105
+
+    4.jinfo：Java配置信息工具
+        a.可以实时地查看和调整虚拟机各项参数。jps -v 只能查看虚拟机启动时显式指定的参数列表。
+        b.命令格式 jinfo [ option ] pid
+
+    5.jmap：java内存映像工具
+        a.生成堆的转储快照。
+        b.生成转储快照命令 jmap -dump:live,format=b,file=tmp.hprof pid。
+        c.导出文件已hprof结尾，可使用MAT工具分析。
+
+    6.jhat：虚拟机对转储快照分析工具（少用）
+
+    7.jstack：java堆栈跟踪工具
+        a.用于生成虚拟机当前时刻的线程快照。线程快照就是当前虚拟机内每一条线程正在执行的方法炖栈集合，
+    生成线程快照的主要目的是定位线程出现长时间停顿的原因，如线程间死锁 、死循环、请求外部资源导致时间
+    过长等待等。
+        b.命令格式-jstack [option] pid
+        c.option
+            -F：当正常输出的请求不被响应时，强制输出线程堆栈。
+            -l：除堆栈外，显示关于锁的附加信息。
+            -m：如果调用本地方法的话，可以显示C/C++堆栈。
+
+
+
