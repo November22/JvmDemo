@@ -1,0 +1,6 @@
+    VisualVM插件地址：https://visualvm.github.io/pluginscenters.html
+    1.Profiler页签的缺失
+
+    2.BTrace动态日志跟踪的使用（远程）
+
+    3.查找VisualVM好用的插件
