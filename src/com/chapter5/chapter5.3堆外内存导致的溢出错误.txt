@@ -1,0 +1,17 @@
+    堆外内存导致的溢出错误（直接内存）
+        1.直接内存（Direct Memory）:直接内存等于 进程内存-堆内存，如进程内存为2GB，堆内存为1.6GB，那么直接内存最多为
+    0.4GB，直接内存的垃圾回收，并不像新生代、老年代那样，发现空间不足了，就通知收集器进行垃圾回收，它只能等到发生Full GC
+    时，才能顺带清理掉废弃对象，否则只能一直等到抛出内存溢出异常时，先catch，然后在catch里面System.gc(),如果还是没有被
+    回收，那么就只能抛出异常了。
+
+        2.除了java堆和永久代外，还会内存的区域
+            a.Direct Memory:可通过-XX:MaxDirectMemorySize调整大小，内存不足时抛出OutOfMemoryError或者OutOfMemoryError
+        :Direct buffer memory;
+            b.线程堆栈：可通过-Xss调整，内存不足时抛出StackOverflowError（纵向无法分配，即无法分配新的栈帧。线程存在
+        但是单个线程的内存不足），或者OutOfMemoryError：unable to create new native thread(横向无法分配，即无法建立
+        新的线程)
+            c.Socket缓存区：每个Socket连接都有Receive和Send两个缓存区，分配占内存约37k和25k，连接过多，也会抛出异常
+        IOException：Too many open files异常。
+            d.JNI代码；
+            e.虚拟机和GC：虚拟机、GC的代码执行也会消耗内存。
+

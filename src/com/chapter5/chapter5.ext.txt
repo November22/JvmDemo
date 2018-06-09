@@ -1,0 +1,6 @@
+    JVM参数设置分析：https://www.cnblogs.com/redcreen/archive/2011/05/04/2037057.html
+    1.-XX:+PrintGCApplicationStoppedTime
+        -打印垃圾回收期间程序暂停的时间.
+        -输出格式：Total time for which application threads were stopped: 0.0468229 seconds
+    2.-Xloggc:filename
+        -把相关日志信息记录到文件以便分析.
