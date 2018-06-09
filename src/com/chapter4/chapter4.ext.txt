@@ -17,7 +17,7 @@
     2.配置tomcat远程连接
         在bin目录下setenv.sh文件中加入或打开注解，指定端口与ip
         -或者新建 setenv.sh文件，加入如下指令。
-
+        //加入此应用后，在停止tomcat时，会报错，端口已占用。应该可以按照第一种的方式解决
         JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote -Djava.rmi.server.hostname=10.151.31.23 -Dcom.sun.management.jmxremote.s
         sl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=9999"
 
