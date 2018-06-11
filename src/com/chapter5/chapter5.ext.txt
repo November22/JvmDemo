@@ -1,6 +1,14 @@
     JVM参数设置分析：https://www.cnblogs.com/redcreen/archive/2011/05/04/2037057.html
     1.-XX:+PrintGCApplicationStoppedTime
-        -打印垃圾回收期间程序暂停的时间.
-        -输出格式：Total time for which application threads were stopped: 0.0468229 seconds
+    -打印垃圾回收期间程序暂停的时间.
+    -输出格式：Total time for which application threads were stopped: 0.0468229 seconds
     2.-Xloggc:filename
-        -把相关日志信息记录到文件以便分析.
+    -把相关日志信息记录到文件以便分析.
+
+    3.开发工具调优：
+    -Xverify:none  禁止字节码验证过程。
+    -XX:+DisableExplicitGC 屏蔽System.gc()
+    4.编译时间
+    -指虚拟机的JIT编译器（Just In Time Compiler）编译热点代码（Hot Spot Code）的耗时。
+    5.Hot Spot虚拟机的编译器：会在一段Java方法被调用次数达到一定程度后，
+    判定为热点代码，交给JIT编译器即时编译为本地代码。
