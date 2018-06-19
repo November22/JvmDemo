@@ -1,0 +1,28 @@
+C:\Java\EclipseWorkSpace\dieDaiQi\bin\abs>javap -verbose Iterator
+警告: 二进制文件Iterator包含abs.Iterator
+Classfile /C:/Java/EclipseWorkSpace/dieDaiQi/bin/abs/Iterator.class
+  Last modified 2017-10-22; size 163 bytes
+  MD5 checksum ae86fbb36137661663a61b308fda4958
+  Compiled from "Iterator.java"
+public interface abs.Iterator
+  SourceFile: "Iterator.java"
+  minor version: 0
+  major version: 51
+  flags: ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT
+Constant pool:
+   #1 = Class              #2             //  abs/Iterator
+   #2 = Utf8               abs/Iterator
+   #3 = Class              #4             //  java/lang/Object
+   #4 = Utf8               java/lang/Object
+   #5 = Utf8               next
+   #6 = Utf8               ()Ljava/lang/Object;
+   #7 = Utf8               hasNext
+   #8 = Utf8               ()Z
+   #9 = Utf8               SourceFile
+  #10 = Utf8               Iterator.java
+{
+  public abstract java.lang.Object next();
+    flags: ACC_PUBLIC, ACC_ABSTRACT
+
+  public abstract boolean hasNext();
+    flags: ACC_PUBLIC, ACC_ABSTRACT
